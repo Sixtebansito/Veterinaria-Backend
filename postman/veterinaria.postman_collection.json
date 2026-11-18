@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "v3t3r1n4-ca01-4b11-9a7a-000000000003",
+		"name": "Veterinaria API - Proyecto 3",
+		"description": "Colección completa para Proyecto 3: Veterinaria. Incluye CRUD completo para Mascota, endpoints especiales (por especie, por dueño, cachorros y conteo de especies) y casos de error 404.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9090",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Listar todas las mascotas (CRUD)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota"
+					]
+				},
+				"description": "Retorna la lista completa de pacientes (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Crear mascota - Firulais (CRUD)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Firulais\",\n    \"especie\": \"perro\",\n    \"edad\": 4,\n    \"dueno\": \"Ana Pérez\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota"
+					]
+				},
+				"description": "Registra una nueva mascota y retorna 201 Created."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Crear mascota - Michi cachorro (CRUD)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Michi\",\n    \"especie\": \"gato\",\n    \"edad\": 1,\n    \"dueno\": \"Carlos Gómez\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota"
+					]
+				},
+				"description": "Crea una mascota con 1 año para probar filtro de cachorros."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Obtener mascota por ID (CRUD)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"1"
+					]
+				},
+				"description": "Retorna la mascota si existe (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Obtener mascota inexistente (CRUD 404)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"999"
+					]
+				},
+				"description": "Verifica que retorne 404 Not Found cuando no existe."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Editar mascota (CRUD)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Firulais Actualizado\",\n    \"especie\": \"perro\",\n    \"edad\": 5,\n    \"dueno\": \"Ana Pérez\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"1"
+					]
+				},
+				"description": "Actualiza los datos de la mascota (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Editar mascota inexistente (CRUD 404)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Fantasma\",\n    \"especie\": \"perro\",\n    \"edad\": 3,\n    \"dueno\": \"Desconocido\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"999"
+					]
+				},
+				"description": "Retorna 404 al intentar editar una mascota inexistente."
+			},
+			"response": []
+		},
+		{
+			"name": "8. Especial: Mascotas por especie (sin importar mayúsculas)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/especie/Perro",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"especie",
+						"Perro"
+					]
+				},
+				"description": "Mascotas de una especie ignorando mayúsculas (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "9. Especial: Mascotas por dueño",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/dueno/Ana Pérez",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"dueno",
+						"Ana Pérez"
+					]
+				},
+				"description": "Mascotas de un mismo dueño (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "10. Especial: Cachorros (1 año o menos)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/cachorros",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"cachorros"
+					]
+				},
+				"description": "Mascotas con edad <= 1 (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "11. Especial: Conteo de mascotas por especie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/conteo-especies",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"conteo-especies"
+					]
+				},
+				"description": "Agrupación en JSON: cuantas mascotas hay por cada especie (200 OK)."
+			},
+			"response": []
+		},
+		{
+			"name": "12. Eliminar mascota (CRUD)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"1"
+					]
+				},
+				"description": "Elimina la mascota existente y retorna 204 No Content."
+			},
+			"response": []
+		},
+		{
+			"name": "13. Eliminar mascota inexistente (CRUD 404)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/mascota/999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"mascota",
+						"999"
+					]
+				},
+				"description": "Retorna 404 Not Found al intentar eliminar una mascota que no existe."
+			},
+			"response": []
+		}
+	]
+}

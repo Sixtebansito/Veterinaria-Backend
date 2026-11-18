@@ -1,0 +1,891 @@
+{
+	"info": {
+		"_postman_id": "vet-multi-model-2026-postman-collection",
+		"name": "Clínica Veterinaria API - Opción 3",
+		"description": "Colección completa para la tarea: API con varios modelos y base de datos real (PostgreSQL). Incluye las carpetas Mascota, Medicamento y Veterinario con CRUD completo, situaciones especiales y casos de error (400, 404 y 409).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9090",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Mascota",
+			"item": [
+				{
+					"name": "1.1 Listar todas las mascotas (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota"
+							]
+						},
+						"description": "Retorna lista de todas las mascotas (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Traer mascota por ID (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"1"
+							]
+						},
+						"description": "Retorna la mascota solicitada (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Traer mascota inexistente (Error 404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 Not Found cuando la mascota no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "1.4 Crear mascota (CRUD)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Firulais\",\n    \"especie\": \"perro\",\n    \"edad\": 4,\n    \"dueno\": \"Ana Pérez\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota"
+							]
+						},
+						"description": "Crea una nueva mascota (201 Created)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.5 Editar mascota (CRUD)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Firulais Actualizado\",\n    \"especie\": \"perro\",\n    \"edad\": 5,\n    \"dueno\": \"Ana Pérez\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"1"
+							]
+						},
+						"description": "Edita una mascota existente (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.6 Editar mascota inexistente (Error 404)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Fantasma\",\n    \"especie\": \"perro\",\n    \"edad\": 1,\n    \"dueno\": \"Nadie\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 al intentar editar una mascota inexistente."
+					},
+					"response": []
+				},
+				{
+					"name": "1.7 Eliminar mascota (CRUD)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"1"
+							]
+						},
+						"description": "Elimina una mascota (204 No Content)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.8 Eliminar mascota inexistente (Error 404)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 al eliminar una mascota inexistente."
+					},
+					"response": []
+				},
+				{
+					"name": "1.9 Especial: Mascotas por especie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/especie/perro",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"especie",
+								"perro"
+							]
+						},
+						"description": "Mascotas de esa especie sin importar mayúsculas (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.10 Especial: Conteo por especie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/conteo-especies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"conteo-especies"
+							]
+						},
+						"description": "Objeto JSON con el conteo de cada especie (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.11 Especial: Mascotas por dueño",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/dueno/Ana Pérez",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"dueno",
+								"Ana Pérez"
+							]
+						},
+						"description": "Mascotas de un mismo dueño (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "1.12 Especial: Cachorros (1 año o menos)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/mascota/cachorros",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"mascota",
+								"cachorros"
+							]
+						},
+						"description": "Mascotas con edad <= 1 año (200 OK)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Medicamento",
+			"item": [
+				{
+					"name": "2.1 Listar todos los medicamentos (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento"
+							]
+						},
+						"description": "Lista el inventario de medicamentos (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Traer medicamento por ID (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1"
+							]
+						},
+						"description": "Retorna el medicamento por ID (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Traer medicamento inexistente (Error 404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 Not Found si no existe el medicamento."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Crear medicamento (CRUD)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Amoxicilina 250 mg\",\n    \"precio\": 8.75,\n    \"stock\": 30,\n    \"requiereReceta\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento"
+							]
+						},
+						"description": "Crea un nuevo medicamento en la farmacia (201 Created)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Editar medicamento (CRUD)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Amoxicilina 500 mg\",\n    \"precio\": 12.50,\n    \"stock\": 25,\n    \"requiereReceta\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1"
+							]
+						},
+						"description": "Edita un medicamento existente (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Editar medicamento inexistente (Error 404)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Inexistente\",\n    \"precio\": 10.0,\n    \"stock\": 10,\n    \"requiereReceta\": false\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 si el medicamento no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Eliminar medicamento (CRUD)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1"
+							]
+						},
+						"description": "Elimina un medicamento (204 No Content)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Eliminar medicamento inexistente (Error 404)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 Not Found si no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "2.9 Especial: Stock bajo (?minimo=5)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/stock-bajo?minimo=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"stock-bajo"
+							],
+							"query": [
+								{
+									"key": "minimo",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Medicamentos con stock menor a mínimo (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.10 Especial: Venta libre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/venta-libre",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"venta-libre"
+							]
+						},
+						"description": "Medicamentos que no requieren receta (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.11 Especial: Despachar medicamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1/despachar?cantidad=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1",
+								"despachar"
+							],
+							"query": [
+								{
+									"key": "cantidad",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Descuenta unidades del stock (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.12 Especial: Despachar cantidad <= 0 (Error 400)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1/despachar?cantidad=0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1",
+								"despachar"
+							],
+							"query": [
+								{
+									"key": "cantidad",
+									"value": "0"
+								}
+							]
+						},
+						"description": "Retorna 400 Bad Request si cantidad es <= 0."
+					},
+					"response": []
+				},
+				{
+					"name": "2.13 Especial: Despachar sin stock suficiente (Error 409)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/medicamento/1/despachar?cantidad=9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"medicamento",
+								"1",
+								"despachar"
+							],
+							"query": [
+								{
+									"key": "cantidad",
+									"value": "9999"
+								}
+							]
+						},
+						"description": "Retorna 409 Conflict si la cantidad supera el stock existente."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Veterinario",
+			"item": [
+				{
+					"name": "3.1 Listar todos los veterinarios (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario"
+							]
+						},
+						"description": "Lista a todos los profesionales (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Traer veterinario por ID (CRUD)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"1"
+							]
+						},
+						"description": "Retorna veterinario por ID (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Traer veterinario inexistente (Error 404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 Not Found si el veterinario no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "3.4 Crear veterinario (CRUD)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Dr. Luis Cevallos\",\n    \"especialidad\": \"cirugía\",\n    \"aniosExperiencia\": 7,\n    \"disponible\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario"
+							]
+						},
+						"description": "Registra un nuevo veterinario (201 Created)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.5 Editar veterinario (CRUD)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Dr. Luis Cevallos M.\",\n    \"especialidad\": \"cirugía general\",\n    \"aniosExperiencia\": 8,\n    \"disponible\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"1"
+							]
+						},
+						"description": "Edita datos del veterinario (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.6 Editar veterinario inexistente (Error 404)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Inexistente\",\n    \"especialidad\": \"ninguna\",\n    \"aniosExperiencia\": 0,\n    \"disponible\": false\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 si el veterinario no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "3.7 Eliminar veterinario (CRUD)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"1"
+							]
+						},
+						"description": "Elimina un veterinario (204 No Content)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.8 Eliminar veterinario inexistente (Error 404)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/9999",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"9999"
+							]
+						},
+						"description": "Retorna 404 Not Found si no existe."
+					},
+					"response": []
+				},
+				{
+					"name": "3.9 Especial: Por especialidad disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/especialidad/cirugía",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"especialidad",
+								"cirugía"
+							]
+						},
+						"description": "Veterinarios de esa especialidad que estén disponibles (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.10 Especial: Más experimentado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/mas-experimentado",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"mas-experimentado"
+							]
+						},
+						"description": "Veterinario con más años de experiencia (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.11 Especial: Cambiar disponibilidad",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/1/disponibilidad?valor=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"1",
+								"disponibilidad"
+							],
+							"query": [
+								{
+									"key": "valor",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Cambia la disponibilidad (200 OK)."
+					},
+					"response": []
+				},
+				{
+					"name": "3.12 Especial: Cambiar disponibilidad al mismo valor (Error 409)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/veterinario/1/disponibilidad?valor=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"veterinario",
+								"1",
+								"disponibilidad"
+							],
+							"query": [
+								{
+									"key": "valor",
+									"value": "false"
+								}
+							]
+						},
+						"description": "Retorna 409 Conflict si ya tenía ese valor de disponibilidad."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
